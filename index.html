@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launchmate | Founder OS</title>
+    <meta
+      name="description"
+      content="Launchmate is an AI technical cofounder that turns fuzzy startup ideas into a guided, agentic founder workspace."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Codex Challenge Build</p>
+          <h1>Launchmate</h1>
+        </div>
+        <p class="topbar-copy">An agentic technical cofounder for first-time founders, student builders, and non-technical entrepreneurs.</p>
+      </header>
+
+      <main>
+        <section class="hero panel">
+          <div class="hero-copy">
+            <p class="section-label">Why this is different</p>
+            <h2>More than a chatbot. It is a founder operating system with memory, tension, and next steps.</h2>
+            <p class="lede">
+              Launchmate does not stop at a generic answer. It runs a cofounder workflow across product, CTO, growth,
+              and critic roles, stores project memory, logs decisions, and ends with a concrete launch path.
+            </p>
+
+            <div class="hero-points">
+              <article>
+                <span>01</span>
+                <h3>Persistent memory</h3>
+                <p>Remembers the founder, constraints, wedge, and decisions so the project gets smarter over time.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3>Agent tension</h3>
+                <p>Different specialist roles debate what to ship, what to cut, and what could break the startup.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3>Execution artifacts</h3>
+                <p>Outputs a wedge, experiment queue, decision ledger, stack path, and sprint board instead of vague advice.</p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="hero-card">
+            <p class="section-label">What Launchmate defends against</p>
+            <div class="mini-chat">
+              <div class="bubble bubble-ai">A raw LLM will happily help you overbuild if you ask the wrong question.</div>
+              <div class="bubble bubble-user">So what does Launchmate do instead?</div>
+              <div class="bubble bubble-ai">It narrows scope, challenges weak assumptions, and keeps a running founder memory before it recommends what to do next.</div>
+            </div>
+            <div class="stat-row">
+              <div>
+                <strong id="heroMode">Agentic</strong>
+                <span>Planning style</span>
+              </div>
+              <div>
+                <strong id="heroMemory">Saved</strong>
+                <span>Workspace memory</span>
+              </div>
+              <div>
+                <strong id="heroGuardrail">High</strong>
+                <span>Anti-overbuild guardrails</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="workspace">
+          <section class="panel input-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">Founder intake</p>
+                <h2>Describe the startup. Launchmate handles the cofounder loop.</h2>
+              </div>
+              <p class="panel-copy">This workspace saves locally in your browser and can optionally use the OpenAI API if you provide an `OPENAI_API_KEY` to the local server.</p>
+            </div>
+
+            <div class="idea-presets" aria-label="Example startup ideas">
+              <button class="preset" type="button" data-preset="campus-marketplace">Campus marketplace</button>
+              <button class="preset" type="button" data-preset="ai-coach">AI interview coach</button>
+              <button class="preset" type="button" data-preset="student-finance">Student finance tool</button>
+            </div>
+
+            <form id="cofounder-form" class="cofounder-form">
+              <label>
+                Startup idea
+                <textarea
+                  id="idea"
+                  name="idea"
+                  rows="4"
+                  placeholder="Example: A platform that helps students find short-term campus gigs and lets clubs hire fast."
+                  required
+                ></textarea>
+              </label>
+
+              <div class="form-grid">
+                <label>
+                  Founder mode
+                  <select id="founderType" name="founderType">
+                    <option value="nontechnical">Non-technical founder</option>
+                    <option value="newbie-dev">Beginner developer</option>
+                    <option value="student-team">Student team</option>
+                  </select>
+                </label>
+
+                <label>
+                  Build skill
+                  <select id="skillLevel" name="skillLevel">
+                    <option value="zero">Zero-code comfort</option>
+                    <option value="beginner">Can ship with guidance</option>
+                    <option value="intermediate">Comfortable building MVPs</option>
+                  </select>
+                </label>
+
+                <label>
+                  Budget
+                  <select id="budget" name="budget">
+                    <option value="0">$0 bootstrapped</option>
+                    <option value="100">Under $100</option>
+                    <option value="500">$100 to $500</option>
+                  </select>
+                </label>
+
+                <label>
+                  Timeline
+                  <select id="timeline" name="timeline">
+                    <option value="weekend">Ship a proof this weekend</option>
+                    <option value="week">Launch in 7 days</option>
+                    <option value="month">Build over a month</option>
+                  </select>
+                </label>
+
+                <label>
+                  Target user
+                  <input id="targetUser" name="targetUser" type="text" placeholder="Students, recruiters, club leaders..." required />
+                </label>
+
+                <label>
+                  First proof point
+                  <select id="goal" name="goal">
+                    <option value="validate">Validate demand</option>
+                    <option value="demo">Demo a working prototype</option>
+                    <option value="pilot">Get pilot users</option>
+                    <option value="revenue">Earn first dollars</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Unfair edge
+                <input id="edge" name="edge" type="text" placeholder="I know club leaders, I already have 20 interested users, I understand this pain deeply..." />
+              </label>
+
+              <label>
+                Hard constraint
+                <input id="constraint" name="constraint" type="text" placeholder="No budget, solo founder, must ship in one week, needs to work for campus clubs..." />
+              </label>
+
+              <label>
+                Biggest blocker right now
+                <input id="blocker" name="blocker" type="text" placeholder="I do not know what to build first, I am afraid of choosing the wrong stack, I need pilot users..." />
+              </label>
+
+              <div class="form-actions">
+                <button class="primary-button" type="submit">Run cofounder swarm</button>
+                <button id="resetWorkspace" class="secondary-button" type="button">Reset workspace</button>
+              </div>
+            </form>
+          </section>
+
+          <section id="results" class="panel results-panel hidden" aria-live="polite">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">Founder workspace</p>
+                <h2 id="resultsTitle">Launchmate mission control</h2>
+              </div>
+              <p id="resultsSubtitle" class="panel-copy">The agentic workspace will appear here.</p>
+            </div>
+
+            <div id="scorecards" class="dashboard-grid"></div>
+
+            <section class="results-block mission-block">
+              <div class="block-heading">
+                <h3>Mission control</h3>
+                <p id="engineStatus">Waiting for a workspace run.</p>
+              </div>
+              <div id="missionControl" class="mission-control"></div>
+            </section>
+
+            <section class="results-block">
+              <div class="block-heading">
+                <h3>Specialist agents</h3>
+                <p>These roles create productive tension so the founder does not only hear one polished answer.</p>
+              </div>
+              <div id="agentBoard" class="agent-board"></div>
+            </section>
+
+            <div class="results-columns">
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Founder thesis</h3>
+                  <p>The normalized startup brief that every later decision uses.</p>
+                </div>
+                <div id="thesisArtifact" class="artifact-list"></div>
+              </section>
+
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Decision ledger</h3>
+                  <p>Scope choices Launchmate is making on purpose, with reasoning and tradeoffs.</p>
+                </div>
+                <div id="decisionArtifact" class="decision-list"></div>
+              </section>
+            </div>
+
+            <div class="results-columns">
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Validation queue</h3>
+                  <p>The fastest experiments to run before overbuilding.</p>
+                </div>
+                <div id="experimentArtifact" class="artifact-list"></div>
+              </section>
+
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Build path</h3>
+                  <p>A technical recommendation tuned to founder ability, speed, and risk.</p>
+                </div>
+                <div id="stackArtifact" class="artifact-list"></div>
+              </section>
+            </div>
+
+            <div class="results-columns">
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Memory vault</h3>
+                  <p>The facts and constraints this cofounder should remember next time.</p>
+                </div>
+                <div id="memoryArtifact" class="artifact-list"></div>
+              </section>
+
+              <section class="results-block">
+                <div class="block-heading">
+                  <h3>Raw LLM vs Launchmate</h3>
+                  <p>The product moat is in workflow, memory, and decision quality, not just model intelligence.</p>
+                </div>
+                <div id="compareArtifact" class="compare-grid"></div>
+              </section>
+            </div>
+
+            <section class="results-block">
+              <div class="block-heading">
+                <h3>7-day founder sprint</h3>
+                <p>Each day ends in a visible artifact so the user feels momentum, not endless research.</p>
+              </div>
+              <div id="sprintArtifact" class="roadmap"></div>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "launchmate-founder-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Launchmate is an agentic AI technical cofounder for first-time founders and student builders.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}
