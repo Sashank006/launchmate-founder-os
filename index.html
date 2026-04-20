@@ -183,88 +183,126 @@
                 <p class="section-label">Founder workspace</p>
                 <h2 id="resultsTitle">Launchmate mission control</h2>
               </div>
-              <p id="resultsSubtitle" class="panel-copy">The agentic workspace will appear here.</p>
+              <div class="results-header-side">
+                <p id="resultsSubtitle" class="panel-copy">The agentic workspace will appear here.</p>
+                <div class="workspace-actions">
+                  <button id="copySummary" class="secondary-button" type="button">Copy summary</button>
+                  <button id="rerunWorkspace" class="primary-button small-button" type="button">Re-run workspace</button>
+                </div>
+              </div>
             </div>
 
             <div id="scorecards" class="dashboard-grid"></div>
-
-            <section class="results-block mission-block">
-              <div class="block-heading">
-                <h3>Mission control</h3>
-                <p id="engineStatus">Waiting for a workspace run.</p>
-              </div>
-              <div id="missionControl" class="mission-control"></div>
-            </section>
-
-            <section class="results-block">
-              <div class="block-heading">
-                <h3>Specialist agents</h3>
-                <p>These roles create productive tension so the founder does not only hear one polished answer.</p>
-              </div>
-              <div id="agentBoard" class="agent-board"></div>
-            </section>
-
-            <div class="results-columns">
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Founder thesis</h3>
-                  <p>The normalized startup brief that every later decision uses.</p>
-                </div>
-                <div id="thesisArtifact" class="artifact-list"></div>
-              </section>
-
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Decision ledger</h3>
-                  <p>Scope choices Launchmate is making on purpose, with reasoning and tradeoffs.</p>
-                </div>
-                <div id="decisionArtifact" class="decision-list"></div>
-              </section>
+            <div class="workspace-tabs" role="tablist" aria-label="Workspace sections">
+              <button class="tab-button active" type="button" data-tab="overview" aria-selected="true">Overview</button>
+              <button class="tab-button" type="button" data-tab="strategy" aria-selected="false">Strategy</button>
+              <button class="tab-button" type="button" data-tab="execution" aria-selected="false">Execution</button>
+              <button class="tab-button" type="button" data-tab="submission" aria-selected="false">Submission</button>
             </div>
 
-            <div class="results-columns">
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Validation queue</h3>
-                  <p>The fastest experiments to run before overbuilding.</p>
-                </div>
-                <div id="experimentArtifact" class="artifact-list"></div>
-              </section>
+            <div class="workspace-panels">
+              <div class="workspace-panel active" data-panel="overview">
+                <section class="results-block mission-block">
+                  <div class="block-heading">
+                    <h3>Mission control</h3>
+                    <p id="engineStatus">Waiting for a workspace run.</p>
+                  </div>
+                  <div id="missionControl" class="mission-control"></div>
+                </section>
 
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Build path</h3>
-                  <p>A technical recommendation tuned to founder ability, speed, and risk.</p>
-                </div>
-                <div id="stackArtifact" class="artifact-list"></div>
-              </section>
-            </div>
+                <section class="results-block">
+                  <div class="block-heading">
+                    <h3>Specialist agents</h3>
+                    <p>These roles create productive tension so the founder does not only hear one polished answer.</p>
+                  </div>
+                  <div id="agentBoard" class="agent-board"></div>
+                </section>
 
-            <div class="results-columns">
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Memory vault</h3>
-                  <p>The facts and constraints this cofounder should remember next time.</p>
-                </div>
-                <div id="memoryArtifact" class="artifact-list"></div>
-              </section>
-
-              <section class="results-block">
-                <div class="block-heading">
-                  <h3>Raw LLM vs Launchmate</h3>
-                  <p>The product moat is in workflow, memory, and decision quality, not just model intelligence.</p>
-                </div>
-                <div id="compareArtifact" class="compare-grid"></div>
-              </section>
-            </div>
-
-            <section class="results-block">
-              <div class="block-heading">
-                <h3>7-day founder sprint</h3>
-                <p>Each day ends in a visible artifact so the user feels momentum, not endless research.</p>
+                <section class="results-block">
+                  <div class="block-heading">
+                    <h3>Founder thesis</h3>
+                    <p>The normalized startup brief that every later decision uses.</p>
+                  </div>
+                  <div id="thesisArtifact" class="artifact-list"></div>
+                </section>
               </div>
-              <div id="sprintArtifact" class="roadmap"></div>
-            </section>
+
+              <div class="workspace-panel" data-panel="strategy">
+                <div class="results-columns">
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Decision ledger</h3>
+                      <p>Scope choices Launchmate is making on purpose, with reasoning and tradeoffs.</p>
+                    </div>
+                    <div id="decisionArtifact" class="decision-list"></div>
+                  </section>
+
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Validation queue</h3>
+                      <p>The fastest experiments to run before overbuilding.</p>
+                    </div>
+                    <div id="experimentArtifact" class="artifact-list"></div>
+                  </section>
+                </div>
+
+                <div class="results-columns">
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Build path</h3>
+                      <p>A technical recommendation tuned to founder ability, speed, and risk.</p>
+                    </div>
+                    <div id="stackArtifact" class="artifact-list"></div>
+                  </section>
+
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Memory vault</h3>
+                      <p>The facts and constraints this cofounder should remember next time.</p>
+                    </div>
+                    <div id="memoryArtifact" class="artifact-list"></div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="workspace-panel" data-panel="execution">
+                <section class="results-block">
+                  <div class="block-heading">
+                    <h3>7-day founder sprint</h3>
+                    <p>Each day ends in a visible artifact so the user feels momentum, not endless research.</p>
+                  </div>
+                  <div id="sprintArtifact" class="roadmap"></div>
+                </section>
+
+                <section class="results-block">
+                  <div class="block-heading">
+                    <h3>Raw LLM vs Launchmate</h3>
+                    <p>The product moat is in workflow, memory, and decision quality, not just model intelligence.</p>
+                  </div>
+                  <div id="compareArtifact" class="compare-grid"></div>
+                </section>
+              </div>
+
+              <div class="workspace-panel" data-panel="submission">
+                <div class="results-columns">
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Submission pack</h3>
+                      <p>The exact language and demo framing that makes this land as a product, not a chatbot wrapper.</p>
+                    </div>
+                    <div id="submissionArtifact" class="artifact-list"></div>
+                  </section>
+
+                  <section class="results-block">
+                    <div class="block-heading">
+                      <h3>Launch checklist</h3>
+                      <p>A final pass so the founder knows what needs to be true before hitting submit or deploy.</p>
+                    </div>
+                    <div id="launchArtifact" class="artifact-list"></div>
+                  </section>
+                </div>
+              </div>
+            </div>
           </section>
         </section>
       </main>

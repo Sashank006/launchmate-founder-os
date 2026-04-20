@@ -9,6 +9,7 @@ Instead of behaving like a raw chatbot, it creates a founder workspace with:
 - a decision ledger
 - a validation queue
 - a 7-day founder sprint
+- a submission pack for demo framing and challenge storytelling
 
 ## Run locally
 
@@ -34,3 +35,26 @@ set OPENAI_MODEL=gpt-4o-mini
 ```
 
 If no API key is present, the frontend automatically falls back to an in-browser demo engine so the product is still usable.
+
+## Vercel deployment
+
+This repo is Vercel-friendly:
+
+- static frontend from the project root
+- serverless API route at `api/workspace.js`
+- optional OpenAI live mode through environment variables
+
+Recommended deployment steps:
+
+```bash
+vercel
+```
+
+Then set:
+
+```bash
+OPENAI_API_KEY
+OPENAI_MODEL
+```
+
+If `OPENAI_API_KEY` is not set, the deployed app still works in polished demo mode using the local frontend fallback.
