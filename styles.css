@@ -254,6 +254,11 @@ body::before {
   padding: 28px;
 }
 
+.input-panel {
+  position: sticky;
+  top: 18px;
+}
+
 .panel-heading,
 .block-heading {
   display: flex;
@@ -264,6 +269,17 @@ body::before {
 
 .panel-heading {
   margin-bottom: 22px;
+}
+
+.results-header-side {
+  max-width: 470px;
+}
+
+.workspace-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 14px;
 }
 
 .panel-heading h2 {
@@ -279,7 +295,10 @@ body::before {
 .mission-control,
 .agent-board,
 .artifact-list,
-.decision-list {
+.decision-list,
+.workspace-tabs,
+.workspace-panel,
+.workspace-panels {
   display: grid;
 }
 
@@ -363,6 +382,10 @@ textarea::placeholder {
   font-weight: 700;
 }
 
+.small-button {
+  padding-inline: 16px;
+}
+
 .primary-button {
   background: linear-gradient(135deg, var(--accent) 0%, #1674a8 100%);
   color: white;
@@ -402,6 +425,48 @@ textarea:focus-visible,
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 20px;
+}
+
+.workspace-tabs {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.tab-button {
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, rgba(13, 139, 139, 0.16) 0%, rgba(22, 116, 168, 0.16) 100%);
+  border-color: rgba(13, 139, 139, 0.28);
+}
+
+.tab-button:hover,
+.tab-button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(24, 27, 34, 0.08);
+}
+
+.workspace-panels {
+  gap: 18px;
+}
+
+.workspace-panel {
+  display: none;
+  gap: 18px;
+}
+
+.workspace-panel.active {
+  display: grid;
 }
 
 .metric-card {
@@ -503,6 +568,10 @@ textarea:focus-visible,
   gap: 12px;
 }
 
+.artifact-card.compact ul {
+  padding-left: 16px;
+}
+
 .artifact-card,
 .decision-card,
 .compare-column,
@@ -561,6 +630,10 @@ textarea:focus-visible,
     grid-template-columns: 1fr;
   }
 
+  .input-panel {
+    position: static;
+  }
+
   .mission-control,
   .roadmap {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -590,6 +663,7 @@ textarea:focus-visible,
   .idea-presets,
   .form-grid,
   .dashboard-grid,
+  .workspace-tabs,
   .mission-control,
   .agent-board,
   .compare-grid,
@@ -601,6 +675,11 @@ textarea:focus-visible,
 
   .form-actions {
     grid-template-columns: 1fr;
+  }
+
+  .workspace-actions {
+    justify-content: start;
+    flex-wrap: wrap;
   }
 
   .hero h2 {

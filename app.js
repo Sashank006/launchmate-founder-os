@@ -70,8 +70,14 @@ const experimentArtifact = document.querySelector("#experimentArtifact");
 const stackArtifact = document.querySelector("#stackArtifact");
 const memoryArtifact = document.querySelector("#memoryArtifact");
 const compareArtifact = document.querySelector("#compareArtifact");
+const submissionArtifact = document.querySelector("#submissionArtifact");
+const launchArtifact = document.querySelector("#launchArtifact");
 const sprintArtifact = document.querySelector("#sprintArtifact");
 const engineStatus = document.querySelector("#engineStatus");
+const copySummaryButton = document.querySelector("#copySummary");
+const rerunWorkspaceButton = document.querySelector("#rerunWorkspace");
+const tabButtons = document.querySelectorAll(".tab-button");
+const workspacePanels = document.querySelectorAll(".workspace-panel");
 
 document.querySelectorAll(".preset").forEach((button) => {
   button.addEventListener("click", () => applyPreset(button.dataset.preset));
@@ -87,6 +93,41 @@ resetButton.addEventListener("click", () => {
   form.reset();
   applyPreset("ai-coach");
   results.classList.add("hidden");
+});
+
+rerunWorkspaceButton.addEventListener("click", async () => {
+  await runWorkspace();
+});
+
+copySummaryButton.addEventListener("click", async () => {
+  const text = `${resultsTitle.textContent}\n\n${resultsSubtitle.textContent}`;
+  try {
+    await navigator.clipboard.writeText(text);
+    copySummaryButton.textContent = "Copied";
+    setTimeout(() => {
+      copySummaryButton.textContent = "Copy summary";
+    }, 1500);
+  } catch (error) {
+    copySummaryButton.textContent = "Copy failed";
+    setTimeout(() => {
+      copySummaryButton.textContent = "Copy summary";
+    }, 1500);
+  }
+});
+
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const tab = button.dataset.tab;
+    tabButtons.forEach((item) => {
+      const active = item === button;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-selected", String(active));
+    });
+
+    workspacePanels.forEach((panel) => {
+      panel.classList.toggle("active", panel.dataset.panel === tab);
+    });
+  });
 });
 
 function applyPreset(key) {
@@ -157,7 +198,7 @@ function setLoadingState(profile) {
     agent("Critic", "Attack weak assumptions and overbuild risk.", "Scanning...", "", true),
   ]);
 
-  [thesisArtifact, decisionArtifact, experimentArtifact, stackArtifact, memoryArtifact, compareArtifact, sprintArtifact].forEach((section) => {
+  [thesisArtifact, decisionArtifact, experimentArtifact, stackArtifact, memoryArtifact, compareArtifact, submissionArtifact, launchArtifact, sprintArtifact].forEach((section) => {
     section.innerHTML = "";
   });
 }
@@ -196,6 +237,8 @@ function renderWorkspace(profile, workspace) {
   stackArtifact.innerHTML = renderArtifactCards(workspace.stack);
   memoryArtifact.innerHTML = renderArtifactCards(workspace.memory);
   compareArtifact.innerHTML = renderCompare(workspace.compare);
+  submissionArtifact.innerHTML = renderArtifactCards(workspace.submission);
+  launchArtifact.innerHTML = renderArtifactCards(workspace.launchChecklist, true);
   sprintArtifact.innerHTML = renderSprint(workspace.sprint);
 }
 
@@ -292,6 +335,8 @@ function buildLocalWorkspace(profile) {
         "Ends in artifacts the founder can execute, save, and revisit.",
       ],
     },
+    submission: buildSubmissionPack(profile, projectName, wedge),
+    launchChecklist: buildLaunchChecklist(profile),
     sprint,
   };
 }
@@ -449,6 +494,36 @@ function buildSprint(profile, category, mode) {
   ];
 }
 
+function buildSubmissionPack(profile, projectName, wedge) {
+  return [
+    artifact("30-second pitch", [
+      `${projectName} is an AI technical cofounder for ${profile.targetUser.toLowerCase()}.`,
+      `Instead of acting like a blank chatbot, it creates a ${wedge.label}, stores founder memory, and turns advice into concrete execution artifacts.`,
+      `The product wins by reducing confusion, narrowing scope, and telling first-time founders exactly what to do next.`,
+    ]),
+    artifact("1-minute demo flow", [
+      "Start with a vague founder idea and show the intake.",
+      "Run the cofounder swarm and pause on mission control plus the specialist agent debate.",
+      "Land on the decision ledger, validation queue, and sprint board to prove this is a workflow product, not just text generation.",
+    ]),
+  ];
+}
+
+function buildLaunchChecklist(profile) {
+  return [
+    artifact("Before submitting", [
+      "Make sure the default preset and workspace render cleanly on first load.",
+      "Verify the fallback demo mode works even without an API key.",
+      "If using OpenAI live mode, set OPENAI_API_KEY in the deployment environment.",
+    ]),
+    artifact("Before demoing", [
+      `Have one sharp story ready for why ${profile.targetUser.toLowerCase()} would use this over asking ChatGPT directly.`,
+      "Practice the click path: intake -> mission control -> decision ledger -> validation queue -> sprint.",
+      "Keep one memorable sentence ready: Launchmate sells momentum, not raw AI answers.",
+    ]),
+  ];
+}
+
 function suggestProjectName(profile, category) {
   const map = {
     marketplace: "Launchmate Workspace for Student Marketplace",
@@ -496,10 +571,10 @@ function renderAgents(items) {
     .join("");
 }
 
-function renderArtifactCards(items) {
+function renderArtifactCards(items, compact = false) {
   return items
     .map((item) => `
-      <article class="artifact-card">
+      <article class="artifact-card ${compact ? "compact" : ""}">
         <strong>${escapeHtml(item.title)}</strong>
         <ul>${item.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>
       </article>

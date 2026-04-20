@@ -4,3 +4,5 @@ node_modules/
 *.log
 .chrome-profile/
 launchmate-*.png
+
+.vercel
